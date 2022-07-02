@@ -142,7 +142,12 @@ const initialState = {
 const adminSlice = createSlice({
   name: "admin",
   initialState,
-  reducers: {},
+  reducers: {
+    clearErrors: (state) => {
+      state.isDeleted = false;
+      state.productCreated = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAdminProducts.fulfilled, (state, action) => {
@@ -171,4 +176,5 @@ const adminSlice = createSlice({
   },
 });
 
+export const { clearErrors } = adminSlice.actions;
 export default adminSlice.reducer;

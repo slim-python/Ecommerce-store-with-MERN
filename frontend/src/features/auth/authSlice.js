@@ -51,7 +51,7 @@ export const loadUser = createAsyncThunk("auth/loadUser", async () => {
   try {
     return await authService.loadUser();
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 });
 
@@ -132,7 +132,9 @@ const authSlice = createSlice({
       })
       .addCase(loadUser.fulfilled, (state, action) => {
         state.user = action.payload;
-        state.isAuthenticated = true;
+        if (state.user) {
+          state.isAuthenticated = true;
+        }
         state.isLoading = false;
       })
       .addCase(logout.fulfilled, (state) => {

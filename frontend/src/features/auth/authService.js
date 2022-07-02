@@ -24,18 +24,18 @@ const login = async (userData) => {
     localStorage.setItem("user", JSON.stringify(respose.data));
   }
 
-  return respose.data;
+  return respose.data.user;
 };
 
 //loadUser User
 const loadUser = async () => {
-  console.log("loaduser func worked");
   const respose = await axios.get(`${API_URL}/me`);
   return respose.data.user;
 };
 
 // Logout user
-const logout = () => {
+const logout = async () => {
+  const respose = await axios.post(`${API_URL}/logout`);
   localStorage.removeItem("user");
 };
 

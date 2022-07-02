@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import Carousel from "react-material-ui-carousel";
 import "./ProductDetails.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAsyncProductDetails } from "../../features/products/productSlice";
@@ -10,7 +9,7 @@ import ReactStars from "react-rating-stars-component";
 import { addItemsToCart } from "../../features/cart/cartSlice";
 import MetaData from "../layout/Metadata";
 import { useParams } from "react-router-dom";
-import { newReview } from "../../features/review/reviewSlice";
+import { newReview, clearErrors } from "../../features/review/reviewSlice";
 import { Rating } from "@material-ui/lab";
 import {
   Dialog,
@@ -81,6 +80,7 @@ const ProductDetails = () => {
     dispatch(fetchAsyncProductDetails(id));
     if (Reviewsuccess) {
       alert.success("Review Submitted Successfully");
+      dispatch(clearErrors());
     }
   }, [dispatch, id, Reviewsuccess]);
 
@@ -92,7 +92,7 @@ const ProductDetails = () => {
           <div className="ProductDetails">
             <div>
               <div>
-                {product.images &&
+                {/* {product.images &&
                   product.images.map((item, i) => (
                     <img
                       className="CarouselImage"
@@ -100,7 +100,12 @@ const ProductDetails = () => {
                       src={item.url}
                       alt={`${i} Slide`}
                     />
-                  ))}
+                  ))} */}
+                <img
+                  className="CarouselImage"
+                  src={product.images[0].url}
+                  alt={` Slide`}
+                />
               </div>
             </div>
             <div>

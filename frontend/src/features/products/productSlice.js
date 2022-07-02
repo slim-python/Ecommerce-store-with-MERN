@@ -16,7 +16,6 @@ export const fetchAsyncProducts = createAsyncThunk(
       link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
     }
 
-    console.log(link);
     let res = await axios.get(link);
 
     return res.data;
@@ -42,16 +41,16 @@ const productSlice = createSlice({
   },
   extraReducers: {
     [fetchAsyncProducts.pending]: (state) => {
-      console.log("pending");
+      // console.log("pending");
       return { ...state, loading: true };
     },
     [fetchAsyncProducts.fulfilled]: (state, { payload }) => {
-      console.log("fetched successfully");
+      // console.log("fetched successfully");
       return { ...state, products: payload, loading: false };
     },
     [fetchAsyncProducts.rejected]: () => console.log("rejected"),
     [fetchAsyncProductDetails.pending]: (state) => {
-      console.log("pending");
+      // console.log("pending");
       return { ...state };
     },
     [fetchAsyncProductDetails.fulfilled]: (state, { payload }) => {

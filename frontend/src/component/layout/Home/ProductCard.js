@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
     <Link className="" to={`/product/${product._id}`}>
       <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
         <img
-          src={product.images[0].url}
+          src={product?.images[0]?.url}
           alt={product.name}
           className="w-full h-full object-center object-cover group-hover:opacity-75"
         />

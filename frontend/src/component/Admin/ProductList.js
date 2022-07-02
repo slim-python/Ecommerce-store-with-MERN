@@ -14,6 +14,7 @@ import SideBar from "./Sidebar";
 import {
   getAdminProducts,
   deleteProduct,
+  clearErrors,
 } from "../../features/admin/adminSlice";
 
 const ProductList = ({ history }) => {
@@ -47,6 +48,7 @@ const ProductList = ({ history }) => {
     if (isDeleted) {
       alert.success("Product Deleted Successfully");
       navigate("/admin/dashboard", { replace: true });
+      dispatch(clearErrors());
     }
 
     dispatch(getAdminProducts());

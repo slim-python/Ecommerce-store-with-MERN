@@ -19,8 +19,6 @@ const LoginSignUp = ({ history, location }) => {
     (state) => state.authReducer
   );
 
-  console.log(message.message, "from");
-
   let isLoading = false;
 
   useEffect(() => {
@@ -51,8 +49,7 @@ const LoginSignUp = ({ history, location }) => {
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({ email: loginEmail, password: loginPassword }));
-
-    alert.error(message);
+    alert.success("Welcome Back !!");
   };
 
   const registerSubmit = (e) => {

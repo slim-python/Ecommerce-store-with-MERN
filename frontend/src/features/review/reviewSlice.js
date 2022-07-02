@@ -24,7 +24,11 @@ const initialState = { message: "", Reviewsuccess: false };
 const reviewSlice = createSlice({
   name: "review",
   initialState,
-  reducers: {},
+  reducers: {
+    clearErrors: (state) => {
+      state.Reviewsuccess = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(newReview.fulfilled, (state, action) => {
       state.Reviewsuccess = action.payload.success;
@@ -33,3 +37,4 @@ const reviewSlice = createSlice({
 });
 
 export default reviewSlice.reducer;
+export const { clearErrors } = reviewSlice.actions;

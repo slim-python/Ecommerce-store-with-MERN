@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./newProduct.css";
 import { useSelector, useDispatch } from "react-redux";
-import { createProduct } from "../../features/admin/adminSlice";
+import { createProduct, clearErrors } from "../../features/admin/adminSlice";
 import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
 import MetaData from "../layout/Metadata";
@@ -11,12 +11,17 @@ import StorageIcon from "@material-ui/icons/Storage";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SideBar from "./Sidebar";
+import { useNavigate } from "react-router-dom";
 
 const NewProduct = ({ history }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { loading, productCreate } = useSelector((state) => state.adminReducer);
+  const { loading, productCreated } = useSelector(
+    (state) => state.adminReducer
+  );
+
+  let navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -42,12 +47,12 @@ const NewProduct = ({ history }) => {
     //     dispatch(clearErrors());
     //   }
 
-    if (productCreate) {
+    if (productCreated) {
       alert.success("Product Created Successfully");
-      //   history.push("/admin/dashboard");
-      //   dispatch({ type: NEW_PRODUCT_RESET });
+      navigate("/admin/dashboard");
+      dispatch(clearErrors());
     }
-  }, [dispatch, alert, productCreate]);
+  }, [dispatch, alert, productCreated]);
 
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
