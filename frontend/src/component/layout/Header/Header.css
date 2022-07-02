@@ -1,0 +1,21 @@
+.speedDial {
+  position: fixed;
+  right: 0.5vmax;
+  top: 3vmax;
+}
+
+.speedDialIcon {
+  border-radius: 100%;
+}
+
+.menuBurger {
+  filter: contrast(0.5);
+}
+
+@media screen and (max-width: 600px) {
+  .speedDial {
+    position: fixed;
+    right: vmax;
+    top: 15vmax;
+  }
+}
