@@ -12,7 +12,7 @@ const ProductCard = ({ product }) => {
   };
   return (
     <Link className="" to={`/product/${product._id}`}>
-      <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+      <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8 scale-100 hover:scale-105 ease-in duration-500">
         <img
           src={product?.images[0]?.url}
           alt={product.name}

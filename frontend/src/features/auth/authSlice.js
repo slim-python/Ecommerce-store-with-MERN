@@ -11,6 +11,7 @@ const initialState = {
   isLoading: false,
   message: "",
   isUpdated: false,
+  isUserUpdated: false,
 };
 
 //Register user
@@ -98,6 +99,7 @@ const authSlice = createSlice({
     clearErrors: (state) => {
       state.isError = false;
       state.message = "";
+      state.isUserUpdated = false;
     },
   },
   extraReducers: (builder) => {
@@ -142,7 +144,7 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.isUserUpdated = action.payload;
       })
       .addCase(updatePassword.fulfilled, (state, action) => {
         state.isUpdated = action.payload.success;

@@ -6,17 +6,21 @@ import FaceIcon from "@material-ui/icons/Face";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/Metadata";
-import { updateUser, loadUser } from "../../features/auth/authSlice";
+import {
+  updateUser,
+  loadUser,
+  clearErrors,
+} from "../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
-const UpdateProfile = ({ history }) => {
+const UpdateProfile = () => {
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { user, isAuthenticated, isLoading } = useSelector(
+  const { user, isAuthenticated, isLoading, isUserUpdated } = useSelector(
     (state) => state.authReducer
   );
-
-  // const { isUpdated } = useSelector((state) => state.userReducer);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -59,17 +63,13 @@ const UpdateProfile = ({ history }) => {
     //   dispatch(clearErrors());
     // }
 
-    // if (isUpdated) {
-    //   alert.success("Profile Updated Successfully");
-    //   dispatch(loadUser());
-
-    //   // history.push("/account");
-
-    //   // dispatch({
-    //   //   type: UPDATE_PROFILE_RESET,
-    //   // });
-    // }
-  }, [dispatch, alert, history, user]);
+    if (isUserUpdated) {
+      console.log("user is updated");
+      alert.success("Profile Updated Successfully");
+      navigate("/account", { replace: true });
+      dispatch(clearErrors());
+    }
+  }, [dispatch, alert, navigate, user, isUserUpdated]);
   return (
     <Fragment>
       {isLoading ? (

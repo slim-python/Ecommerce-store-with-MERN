@@ -76,10 +76,7 @@ const Header = () => {
 
               <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                 <div className="flow-root">
-                  <Link
-                    to="/login"
-                    className="-m-2 p-2 block font-medium text-gray-900"
-                  >
+                  <Link to="/login" className={signInshow}>
                     Sign in
                   </Link>
                 </div>
@@ -90,7 +87,7 @@ const Header = () => {
 
         <header className="relative bg-white">
           <p className="bg-pink-400 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
-            Get free delivery on orders over ₹500
+            Get free delivery on orders over ₹1000
           </p>
 
           <nav

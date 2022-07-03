@@ -45,7 +45,7 @@ const updateUser = async (userData) => {
 
   const respose = await axios.put(`${API_URL}/me/update`, userData, config);
 
-  return respose.data;
+  return respose.data.success;
 };
 
 //update user

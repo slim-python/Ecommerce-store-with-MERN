@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "./Products.css";
+// import "./Products.css";
 import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../layout/Home/ProductCard";
 import MetaData from "../layout/Metadata";
@@ -23,6 +23,13 @@ const categories = [
 ];
 
 const Products = () => {
+  const [filterpageOpen, setfilterpageOpen] = useState(false);
+  let filterpageStyleshow = "fixed inset-0 flex z-40 lg:hidden";
+  let filterpageStylehidden = "fixed inset-0 hidden z-40 lg:hidden";
+  let toggleMenu = () => {
+    setfilterpageOpen(!filterpageOpen);
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 250000]);
   const [category, setCategory] = useState("");
@@ -69,7 +76,9 @@ const Products = () => {
               <div>
                 {/* mobile */}
                 <div
-                  className="fixed inset-0 flex z-40 lg:hidden"
+                  className={
+                    filterpageOpen ? filterpageStyleshow : filterpageStylehidden
+                  }
                   role="dialog"
                   aria-modal="true"
                 >
@@ -84,6 +93,7 @@ const Products = () => {
                         Filters
                       </h2>
                       <button
+                        onClick={toggleMenu}
                         type="button"
                         className="-mr-2 w-10 h-10 p-2 flex items-center justify-center text-gray-400 hover:text-gray-500"
                       >
@@ -138,85 +148,20 @@ const Products = () => {
                           </legend>
                           <div className="pt-4 pb-2 px-4" id="filter-section-1">
                             <div className="space-y-6">
-                              <div className="flex items-center">
-                                <input
-                                  id="category-0-mobile"
-                                  name="category[]"
-                                  value="new-arrivals"
-                                  type="checkbox"
-                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor="category-0-mobile"
-                                  className="ml-3 text-sm text-gray-500"
+                              {categories.map((category) => (
+                                <div
+                                  className="flex items-center"
+                                  key={category}
+                                  onClick={() => setCategory(category)}
                                 >
-                                  All New Arrivals
-                                </label>
-                              </div>
-
-                              <div className="flex items-center">
-                                <input
-                                  id="category-1-mobile"
-                                  name="category[]"
-                                  value="tees"
-                                  type="checkbox"
-                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor="category-1-mobile"
-                                  className="ml-3 text-sm text-gray-500"
-                                >
-                                  Tees
-                                </label>
-                              </div>
-
-                              <div className="flex items-center">
-                                <input
-                                  id="category-2-mobile"
-                                  name="category[]"
-                                  value="crewnecks"
-                                  type="checkbox"
-                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor="category-2-mobile"
-                                  className="ml-3 text-sm text-gray-500"
-                                >
-                                  Crewnecks
-                                </label>
-                              </div>
-
-                              <div className="flex items-center">
-                                <input
-                                  id="category-3-mobile"
-                                  name="category[]"
-                                  value="sweatshirts"
-                                  type="checkbox"
-                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor="category-3-mobile"
-                                  className="ml-3 text-sm text-gray-500"
-                                >
-                                  Sweatshirts
-                                </label>
-                              </div>
-
-                              <div className="flex items-center">
-                                <input
-                                  id="category-4-mobile"
-                                  name="category[]"
-                                  value="pants-shorts"
-                                  type="checkbox"
-                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor="category-4-mobile"
-                                  className="ml-3 text-sm text-gray-500"
-                                >
-                                  Pants &amp; Shorts
-                                </label>
-                              </div>
+                                  <label
+                                    htmlFor="category-0"
+                                    className="ml-3 text-sm text-gray-600 hover:text-indigo-400 hover:font-semibold"
+                                  >
+                                    {category}
+                                  </label>
+                                </div>
+                              ))}
                             </div>
                           </div>
                         </fieldset>
@@ -241,6 +186,7 @@ const Products = () => {
                       <h2 className="sr-only">Filters</h2>
 
                       <button
+                        onClick={toggleMenu}
                         type="button"
                         className="inline-flex items-center lg:hidden"
                       >

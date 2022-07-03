@@ -21,7 +21,6 @@
   width: 50%;
   outline: none;
   border-radius: 0%;
-  font: 300 1.1vmax cursive;
   box-sizing: border-box;
   height: 8%;
 }
@@ -46,13 +45,18 @@
 @media screen and (max-width: 600px) {
   .searchBox > input[type="text"] {
     width: 100%;
-    font: 300 4vw cursive;
-    height: 10%;
+    font: 300 4vw roboto;
+    height: 7%;
+    padding: 20px;
+    margin-left: 30px;
+    margin-bottom: 120px;
   }
 
   .searchBox > input[type="submit"] {
-    height: 10%;
+    height: 7%;
     width: 30%;
     font: 300 4vw "Roboto";
+    margin-right: 30px;
+    margin-bottom: 120px;
   }
 }
