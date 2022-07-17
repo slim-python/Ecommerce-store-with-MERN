@@ -115,7 +115,7 @@ const authSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
+        state.message = action.payload.message;
         state.user = null;
       })
       .addCase(loginUser.pending, (state) => {
@@ -145,6 +145,9 @@ const authSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.isUserUpdated = action.payload;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.message = action.payload.message;
       })
       .addCase(updatePassword.fulfilled, (state, action) => {
         state.isUpdated = action.payload.success;

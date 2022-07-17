@@ -10,19 +10,23 @@ import StorageIcon from "@material-ui/icons/Storage";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SideBar from "./Sidebar";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  fetchAsyncProductDetails,
+  fetchAsyncUpdateProduct,
+  clearErrors,
+} from "../../features/products/productSlice";
 
 const UpdateProduct = ({ history, match }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
+  let navigate = useNavigate;
 
-  const { product } = useSelector((state) => state.productReducer);
+  const { product, success } = useSelector(
+    (state) => state.productReducer.productDetails
+  );
 
-  //   const {
-  //     loading,
-  //     error: updateError,
-  //     isUpdated,
-  //   } = useSelector((state) => state.product);
+  const { isProductUpdated } = useSelector((state) => state.productReducer);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -43,37 +47,51 @@ const UpdateProduct = ({ history, match }) => {
     "SmartPhones",
   ];
 
-  //   let { id } = useParams;
-  //   let productId = id;
+  let { id } = useParams();
+  let productId = id;
+
+  useEffect(() => {
+    dispatch(fetchAsyncProductDetails(productId));
+  }, []);
   //   productId = match.params.id;
 
-  //   useEffect(() => {
-  //     if (true) {
-  //       //   dispatch(getProductDetails(productId));
-  //     } else {
-  //       setName(product.name);
-  //       setDescription(product.description);
-  //       setPrice(product.price);
-  //       setCategory(product.category);
-  //       setStock(product.Stock);
-  //       setOldImages(product.images);
-  //     }
-  //     // if (error) {
-  //     //   alert.error(error);
-  //     //   dispatch(clearErrors());
-  //     // }
+  useEffect(() => {
+    // if (true) {
+    //   dispatch(fetchAsyncProductDetails(productId));
+    // } else {
+    //   setName(product.name);
+    //   setDescription(product.description);
+    //   setPrice(product.price);
+    //   setCategory(product.category);
+    //   setStock(product.Stock);
+    //   setOldImages(product.images);
+    // }
 
-  //     // if (updateError) {
-  //     //   alert.error(updateError);
-  //     //   dispatch(clearErrors());
-  //     // }
+    if (product) {
+      setName(product.name);
+      setDescription(product.description);
+      setPrice(product.price);
+      setCategory(product.category);
+      setStock(product.Stock);
+      setOldImages(product.images);
+    }
+    // if (error) {
+    //   alert.error(error);
+    //   dispatch(clearErrors());
+    // }
 
-  //     // if (isUpdated) {
-  //     //   alert.success("Product Updated Successfully");
-  //     //   history.push("/admin/products");
-  //     //   dispatch({ type: UPDATE_PRODUCT_RESET });
-  //     // }
-  //   }, [dispatch]);
+    // if (updateError) {
+    //   alert.error(updateError);
+    //   dispatch(clearErrors());
+    // }
+
+    if (isProductUpdated) {
+      console.log("product updated");
+      alert.success("Product Updated Successfully");
+      // navigate("/admin/products", { replace: true });
+      dispatch(clearErrors());
+    }
+  }, [dispatch, product, productId, isProductUpdated]);
 
   const updateProductSubmitHandler = (e) => {
     e.preventDefault();
@@ -89,7 +107,10 @@ const UpdateProduct = ({ history, match }) => {
     images.forEach((image) => {
       myForm.append("images", image);
     });
-    // dispatch(updateProduct(productId, myForm));
+
+    console.log(productId, myForm);
+
+    dispatch(fetchAsyncUpdateProduct({ id, myForm }));
   };
 
   const updateProductImagesChange = (e) => {

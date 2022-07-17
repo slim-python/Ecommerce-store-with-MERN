@@ -30,7 +30,27 @@ export const fetchAsyncProductDetails = createAsyncThunk(
   }
 );
 
-const initialState = { products: {}, productDetails: {} };
+//update product
+export const fetchAsyncUpdateProduct = createAsyncThunk(
+  "products/fetchAsyncUpdateProduct",
+  async ({ id, myForm }) => {
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+    const { data } = await axios.put(
+      `/api/v1/admin/product/${id}`,
+      myForm,
+      config
+    );
+    return data.success;
+  }
+);
+
+const initialState = {
+  products: {},
+  productDetails: {},
+  isProductUpdated: false,
+};
 const productSlice = createSlice({
   name: "product",
   initialState,
@@ -38,28 +58,28 @@ const productSlice = createSlice({
     getProducts: (state, { payload }) => {
       state.products = payload;
     },
+    clearErrors: (state) => {
+      state.isProductUpdated = false;
+    },
   },
-  extraReducers: {
-    [fetchAsyncProducts.pending]: (state) => {
-      // console.log("pending");
-      return { ...state, loading: true };
-    },
-    [fetchAsyncProducts.fulfilled]: (state, { payload }) => {
-      // console.log("fetched successfully");
-      return { ...state, products: payload, loading: false };
-    },
-    [fetchAsyncProducts.rejected]: () => console.log("rejected"),
-    [fetchAsyncProductDetails.pending]: (state) => {
-      // console.log("pending");
-      return { ...state };
-    },
-    [fetchAsyncProductDetails.fulfilled]: (state, { payload }) => {
-      return { ...state, productDetails: payload };
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchAsyncUpdateProduct.fulfilled, (state, action) => {
+        state.isProductUpdated = action.payload;
+      })
+      .addCase(fetchAsyncProducts.pending, (state) => {
+        return { ...state, loading: true };
+      })
+      .addCase(fetchAsyncProducts.fulfilled, (state, action) => {
+        return { ...state, products: action.payload, loading: false };
+      })
+      .addCase(fetchAsyncProductDetails.fulfilled, (state, action) => {
+        return { ...state, productDetails: action.payload };
+      });
   },
 });
 
-export const { getProducts } = productSlice.actions;
+export const { getProducts, clearErrors } = productSlice.actions;
 export const getAllProducts = (state) => state.productReducer;
 export const getAllProductsDetails = (state) => state.productReducer;
 

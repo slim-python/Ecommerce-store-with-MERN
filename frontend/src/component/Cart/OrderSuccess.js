@@ -8,16 +8,16 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 const OrderSuccess = () => {
   return (
     <div>
-      <div class="bg-white">
-        <div class="max-w-3xl mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-          <div class="max-w-xl">
-            <h1 class="text-sm font-semibold uppercase tracking-wide text-indigo-600">
+      <div className="bg-white">
+        <div className="max-w-3xl mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+          <div className="max-w-xl">
+            <h1 className="text-sm font-semibold uppercase tracking-wide text-indigo-600">
               Thank you!
             </h1>
-            <p class="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">
+            <p className="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">
               It&#039;s on the way!
             </p>
-            <p class="mt-2 text-base text-gray-500">
+            <p className="mt-2 text-base text-gray-500">
               Your order #14034056 has been placed and will be shipped soon.
             </p>
             <Link to="/orders">

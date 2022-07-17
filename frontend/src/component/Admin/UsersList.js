@@ -2,21 +2,25 @@ import React, { Fragment, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import "./productList.css";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
 import MetaData from "../layout/Metadata";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SideBar from "./Sidebar";
-import { getAllUsers } from "../../features/admin/adminSlice";
+import {
+  getAllUsers,
+  deleteUserById,
+  clearErrors,
+} from "../../features/admin/adminSlice";
 
 const UsersList = ({ history }) => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const alert = useAlert();
 
-  const { users } = useSelector((state) => state.adminReducer);
+  const { users, isUserDeleted } = useSelector((state) => state.adminReducer);
 
   //   const {
   //     error: deleteError,
@@ -26,6 +30,8 @@ const UsersList = ({ history }) => {
 
   const deleteUserHandler = (id) => {
     // dispatch(deleteUser(id));
+    console.log("delete user with this id: ", id);
+    dispatch(deleteUserById(id));
   };
 
   useEffect(() => {
@@ -39,29 +45,29 @@ const UsersList = ({ history }) => {
     //   dispatch(clearErrors());
     // }
 
-    // if (isDeleted) {
-    //   alert.success(message);
-    //   history.push("/admin/users");
-    //   dispatch({ type: DELETE_USER_RESET });
-    // }
+    if (isUserDeleted) {
+      alert.success("user has been deleted");
+      navigate("/admin/users", { replace: true });
+      dispatch(clearErrors());
+    }
 
     dispatch(getAllUsers());
-  }, [dispatch]);
+  }, [dispatch, isUserDeleted]);
 
   const columns = [
-    { field: "id", headerName: "User ID", minWidth: 180, flex: 0.8 },
+    { field: "id", headerName: "User ID", minWidth: 10, flex: 0.5 },
 
     {
       field: "email",
       headerName: "Email",
-      minWidth: 200,
-      flex: 1,
+      minWidth: 100,
+      flex: 0.5,
     },
     {
       field: "name",
       headerName: "Name",
-      minWidth: 150,
-      flex: 0.5,
+      minWidth: 80,
+      flex: 0.4,
     },
 
     {
@@ -79,7 +85,7 @@ const UsersList = ({ history }) => {
 
     {
       field: "actions",
-      flex: 0.3,
+      flex: 0.5,
       headerName: "Actions",
       minWidth: 150,
       type: "number",
@@ -123,7 +129,11 @@ const UsersList = ({ history }) => {
       <div className="dashboard">
         <SideBar />
         <div className="productListContainer">
-          <h1 id="productListHeading">ALL USERS</h1>
+          <div>
+            <h1 className="text-center text-xl lg:text-3xl font-bold text-gray-600 my-10">
+              ALL USERS
+            </h1>
+          </div>
 
           <DataGrid
             rows={rows}
@@ -131,7 +141,6 @@ const UsersList = ({ history }) => {
             pageSize={10}
             disableSelectionOnClick
             className="productListTable"
-            autoHeight
           />
         </div>
       </div>

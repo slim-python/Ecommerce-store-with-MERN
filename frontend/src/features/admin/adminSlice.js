@@ -134,10 +134,71 @@ export const getAllReviews = createAsyncThunk(
   }
 );
 
+//delete user --admin
+export const deleteUserById = createAsyncThunk(
+  "admin/deleteUserByID",
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await axios.delete(`/api/v1/admin/users/${id}`);
+      return await data.success;
+    } catch (error) {
+      const message =
+        (error.response && error.response.data && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//update user role --admin
+export const UpdateUserRoleById = createAsyncThunk(
+  "admin/UpdateUserRoleById",
+  async ({ id, myForm }, thunkAPI) => {
+    try {
+      const config = { headers: { "Content-Type": "application/json" } };
+      console.log("the dta was", myForm);
+
+      const { data } = await axios.put(
+        `/api/v1/admin/users/${id}`,
+        myForm,
+        config
+      );
+      return await data.success;
+    } catch (error) {
+      const message =
+        (error.response && error.response.data && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//getuser details by id
+export const getUserDetailsById = createAsyncThunk(
+  "admin/getUserDetailsById",
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`/api/v1/admin/users/${id}`);
+      return await data.user;
+    } catch (error) {
+      const message =
+        (error.response && error.response.data && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const initialState = {
   isDeleted: false,
   loading: false,
   productCreated: false,
+  isUserDeleted: false,
+  isUserRoleUpdated: false,
+  user: null,
 };
 const adminSlice = createSlice({
   name: "admin",
@@ -146,6 +207,9 @@ const adminSlice = createSlice({
     clearErrors: (state) => {
       state.isDeleted = false;
       state.productCreated = false;
+      state.isUserDeleted = false;
+      state.isUserRoleUpdated = false;
+      state.user = null;
     },
   },
   extraReducers: (builder) => {
@@ -172,6 +236,15 @@ const adminSlice = createSlice({
       })
       .addCase(getAllReviews.fulfilled, (state, action) => {
         state.reviews = action.payload;
+      })
+      .addCase(deleteUserById.fulfilled, (state, action) => {
+        state.isUserDeleted = action.payload;
+      })
+      .addCase(UpdateUserRoleById.fulfilled, (state, action) => {
+        state.isUserRoleUpdated = action.payload;
+      })
+      .addCase(getUserDetailsById.fulfilled, (state, action) => {
+        state.user = action.payload;
       });
   },
 });

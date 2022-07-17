@@ -5,7 +5,7 @@
   border-left: 1px solid rgba(0, 0, 0, 0.158);
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 80vh;
 }
 
 #productListHeading {
@@ -20,13 +20,15 @@
 
 .productListTable {
   background-color: white;
-  border: none !important;
+  /* border: none !important; */
+  color: #0e7490;
 }
 
 .productListTable div {
   font: 300 1vmax "Roboto";
   color: rgba(0, 0, 0, 0.678);
-  border: none !important;
+  /* border: none !important; */
+  /* border: 2px solid rgb(16, 28, 255); */
 }
 
 .productListTable a,
@@ -36,11 +38,11 @@
 }
 
 .productListTable a:hover {
-  color: tomato;
+  color: rgb(3, 1, 1);
 }
 
 .productListTable button:hover {
-  color: rgb(236, 30, 30);
+  color: #0e7490;
 }
 
 .MuiDataGrid-columnHeader div {

@@ -35,6 +35,12 @@ import UpdateProduct from "./component/Admin/UpdateProduct.js";
 import OrderList from "./component/Admin/OrderList.js";
 import UsersList from "./component/Admin/UsersList.js";
 import ProductReviews from "./component/Admin/ProductReviews.js";
+import Aboutus from "./component/otherPages/Aboutus";
+import Contactus from "./component/otherPages/Contactus";
+import PrivacyPolicy from "./component/otherPages/PrivacyPolicy";
+import Grocery from "./component/Product/grocery/grocery";
+import Dashboard2 from "./component/Admin/Dashboard2";
+import UpdateUser from "./component/Admin/UpdateUser.js";
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.authReducer);
 
@@ -67,16 +73,19 @@ function App() {
       {/* {stripeApiKey && <Elements stripe={stripePromise}></Elements>} */}
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route exact path="/404" element={<NotFound />} />
+        <Route exact path="/dashboard2" element={<Dashboard2 />} />
+        <Route path="*" element={<NotFound />} />
         <Route exact path="/product/:id" element={<ProductDetails />} />
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/search" element={<Search />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route path="/login" element={<LoginSignup />} />
-        <Route
-          path="/account"
-          element={<ProtectedRoute Component={Profile} />}
-        />
+        {isAuthenticated && (
+          <Route
+            path="/account"
+            element={<ProtectedRoute Component={Profile} />}
+          />
+        )}
         <Route
           path="/me/update"
           element={<ProtectedRoute Component={UpdateProfile} />}
@@ -133,9 +142,17 @@ function App() {
           element={<ProtectedRoute Component={UsersList} />}
         />
         <Route
+          path="/admin/user/:id"
+          element={<ProtectedRoute Component={UpdateUser} />}
+        />
+        <Route
           path="/admin/reviews"
           element={<ProtectedRoute Component={ProductReviews} />}
         />
+        <Route exact path="/about-us" element={<Aboutus />} />
+        <Route exact path="/contact-us" element={<Contactus />} />
+        <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route exact path="/grocery" element={<Grocery />} />
       </Routes>
       <Footer />
     </Router>

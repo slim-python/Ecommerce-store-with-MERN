@@ -20,6 +20,25 @@ export const addItemsToCart = createAsyncThunk(
   }
 );
 
+// export const removeItemsFromCart = createAsyncThunk(
+//   "cart/removeItemsFromCart",
+//   async ({ id, quantity }, thunkAPI) => {
+//     const { data } = await axios.get(`/api/v1/product/${id}`);
+
+//     let cartItemData = {
+//       product: data.product._id,
+//       name: data.product.name,
+//       price: data.product.price,
+//       image: data.product.images[0].url,
+//       stock: data.product.Stock,
+//       quantity: quantity,
+//     };
+
+//     localStorage.setItem("cartItems", JSON.stringify([cartItemData]));
+//     return cartItemData;
+//   }
+// );
+
 //save shipping info
 
 export const saveShippingInfo = createAsyncThunk(
@@ -40,7 +59,12 @@ const initialState = {
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    removeItemsFromCart: (state, action) => {
+      state.cartItems = [];
+      localStorage.removeItem("cartItems");
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addItemsToCart.fulfilled, (state, action) => {
@@ -55,3 +79,4 @@ const cartSlice = createSlice({
 });
 
 export default cartSlice.reducer;
+export const { removeItemsFromCart } = cartSlice.actions;

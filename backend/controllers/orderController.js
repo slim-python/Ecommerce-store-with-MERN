@@ -2,6 +2,8 @@ const Order = require("../models/orderModels");
 const Product = require("../models/productModels");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const SendSms = require("../utils/SendSMS");
+const sendSMS = require("../utils/SendSMS");
 
 // Create new Order
 exports.newOrder = catchAsyncErrors(async (req, res, next) => {
@@ -124,4 +126,19 @@ exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
   });
+});
+
+//send Message
+
+exports.sendMessage = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const { body, phoneNumber } = req.body;
+    await sendSMS({ body, phoneNumber });
+    res.status(200).json({
+      sucess: true,
+      message: `SMS sent sucessfully`,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });

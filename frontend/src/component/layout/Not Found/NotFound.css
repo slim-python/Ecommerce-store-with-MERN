@@ -1,43 +1,5 @@
-.PageNotFound {
-  margin: auto;
-  text-align: center;
-  padding: 10vmax;
-  height: 50vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.PageNotFound > svg {
-  font-size: 7vmax;
-  color: tomato;
-}
-.PageNotFound > p {
-  font-size: 2vmax;
-}
-.PageNotFound > a {
-  background-color: rgb(51, 51, 51);
-  color: white;
-  border: none;
-  padding: 1vmax 3vmax;
-  cursor: pointer;
-  font: 400 1vmax "Roboto";
-  text-decoration: none;
-  margin: 2vmax;
-}
-
-@media screen and (max-width: 600px) {
-  .PageNotFound > a {
-    padding: 3vw 6vw;
-    font: 400 4vw "Roboto";
-    margin: 2vmax;
-  }
-
-  .PageNotFound > svg {
-    font-size: 20vw;
-  }
-  .PageNotFound > p {
-    margin: 2vmax;
-    font-size: 5vw;
-  }
-}
+/* #box {
+  background-image: url("https://images.unsplash.com/photo-1545972154-9bb223aac798?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=3050&amp;q=80&amp;exp=8&amp;con=-15&amp;sat=-75&#039");
+  background-repeat: no-repeat;
+  background-size: cover;
+} */

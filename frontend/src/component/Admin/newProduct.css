@@ -7,11 +7,11 @@
   flex-direction: column;
   height: 100vh;
 }
-.newProductContainer h1 {
+/* .newProductContainer h1 {
   color: rgba(0, 0, 0, 0.733);
   font: 300 2rem "Roboto";
   text-align: center;
-}
+} */
 
 .createProductForm {
   display: flex;

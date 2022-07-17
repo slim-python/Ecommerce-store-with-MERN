@@ -7,6 +7,7 @@ const {
   getAllOrders,
   updateOrder,
   deleteOrder,
+  sendMessage,
 } = require("../controllers/orderController");
 
 const router = express.Router();
@@ -27,4 +28,6 @@ router
   .route("/admin/order/:id")
   .put(isAuthneticatedUser, authorizeRoles("admin"), updateOrder)
   .delete(isAuthneticatedUser, authorizeRoles("admin"), deleteOrder);
+
+router.route("/order/success").post(isAuthneticatedUser, sendMessage);
 module.exports = router;

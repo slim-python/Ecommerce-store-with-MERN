@@ -9,9 +9,10 @@ const ProtectedRoute = (props) => {
   );
   useEffect(() => {
     if (isAuthenticated === false) {
+      console.log("not authenticated");
       navigate("/login", { replace: true });
     }
-  }, []);
+  }, [isAuthenticated]);
   return (
     <div>
       <Component />

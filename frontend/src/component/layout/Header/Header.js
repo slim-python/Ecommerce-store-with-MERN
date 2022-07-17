@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const [banner, setBanner] = useState("bg-pink-400");
   let navStyleshow = "relative z-40 lg:hidden";
   let navStylehidden = "hidden z-40 lg:hidden";
   let toggleMenu = () => {
@@ -72,11 +73,22 @@ const Header = () => {
                     Products
                   </Link>
                 </div>
+                <div className="flow-root">
+                  <Link
+                    to="/grocery"
+                    className="-m-2 p-2 block font-medium text-gray-900"
+                  >
+                    Groceries
+                  </Link>
+                </div>
               </div>
 
               <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                 <div className="flow-root">
-                  <Link to="/login" className={signInshow}>
+                  <Link
+                    to="/login"
+                    className={isAuthenticated ? `hidden` : `block`}
+                  >
                     Sign in
                   </Link>
                 </div>
@@ -86,9 +98,67 @@ const Header = () => {
         </div>
 
         <header className="relative bg-white">
-          <p className="bg-pink-400 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
-            Get free delivery on orders over ₹1000
-          </p>
+          <div class={banner}>
+            <div class="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
+              <div class="flex flex-wrap items-center justify-between">
+                <div class="flex w-0 flex-1 items-center">
+                  <span class="flex rounded-lg bg-pink-600 p-2">
+                    <svg
+                      class="h-6 w-6 text-white"
+                      x-description="Heroicon name: outline/speakerphone"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
+                      ></path>
+                    </svg>
+                  </span>
+                  <p class="ml-3 truncate font-medium text-white">
+                    <span class="md:hidden"> We announced a new product! </span>
+                    <span class="hidden md:inline">
+                      {" "}
+                      Get free delivery on orders over ₹1000
+                    </span>
+                  </p>
+                </div>
+
+                <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
+                  <button
+                    onClick={() => {
+                      setBanner("hidden");
+                    }}
+                    type="button"
+                    class="-mr-1 flex rounded-md p-2 hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-white sm:-mr-2"
+                  >
+                    <span class="sr-only">Dismiss</span>
+                    <svg
+                      class="h-6 w-6 text-white"
+                      x-description="Heroicon name: outline/x"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <nav
             aria-label="Top"
@@ -141,17 +211,6 @@ const Header = () => {
                           <Link to="/">Home</Link>
                         </button>
                       </div>
-
-                      <div className="absolute top-full inset-x-0 text-sm text-gray-500">
-                        <div
-                          className="absolute inset-0 top-1/2 bg-white shadow"
-                          aria-hidden="true"
-                        ></div>
-
-                        <div className="relative bg-white">
-                          <div className="max-w-7xl mx-auto px-8"></div>
-                        </div>
-                      </div>
                     </div>
 
                     <div className="flex">
@@ -162,6 +221,18 @@ const Header = () => {
                           aria-expanded="false"
                         >
                           <Link to="/products">Products</Link>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="flex">
+                      <div className="relative flex">
+                        <button
+                          type="button"
+                          className="border-transparent text-gray-700 hover:text-gray-800 relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px"
+                          aria-expanded="false"
+                        >
+                          <Link to="/grocery">Groceries</Link>
                         </button>
                       </div>
                     </div>

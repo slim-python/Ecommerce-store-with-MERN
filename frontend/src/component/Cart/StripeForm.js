@@ -19,7 +19,7 @@ import CreditCardIcon from "@material-ui/icons/CreditCard";
 import EventIcon from "@material-ui/icons/Event";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { Navigate, useNavigate } from "react-router-dom";
-import { createOrder } from "../../features/order/orderSlice";
+import { createOrder, sendSMS } from "../../features/order/orderSlice";
 
 export default function StripeForm() {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -32,6 +32,12 @@ export default function StripeForm() {
   const dispatch = useDispatch();
   const alert = useAlert();
   let navigate = useNavigate();
+
+  const SendMessageAfterPayment = () => {
+    let body = `Hi ${user.name}, We have recieved your order, we will update you shortly ❤️`;
+    let phoneNumber = shippingInfo.phoneNo;
+    dispatch(sendSMS({ body, phoneNumber }));
+  };
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
@@ -48,6 +54,8 @@ export default function StripeForm() {
 
   //new button
   const submitHandler = async (e) => {
+    console.log("you clicked mme \n", order);
+
     e.preventDefault();
 
     payBtn.current.disabled = true;
@@ -87,8 +95,6 @@ export default function StripeForm() {
 
       if (result.error) {
         payBtn.current.disabled = false;
-        console.log("error aaya");
-
         alert.error(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
@@ -98,8 +104,8 @@ export default function StripeForm() {
           };
 
           dispatch(createOrder(order));
-
           navigate("/success", { replace: true });
+          SendMessageAfterPayment();
         } else {
           alert.error("There's some issue while processing payment ");
         }

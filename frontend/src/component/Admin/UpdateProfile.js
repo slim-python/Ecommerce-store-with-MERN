@@ -18,9 +18,8 @@ const UpdateProfile = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { user, isAuthenticated, isLoading, isUserUpdated } = useSelector(
-    (state) => state.authReducer
-  );
+  const { user, isAuthenticated, isLoading, isUserUpdated, message } =
+    useSelector((state) => state.authReducer);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -55,21 +54,22 @@ const UpdateProfile = () => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
-      setAvatarPreview(user.avatar.url);
+      setAvatarPreview(user?.avatar?.url);
     }
 
-    // if (error) {
-    //   alert.error(error);
-    //   dispatch(clearErrors());
-    // }
+    if (message) {
+      alert.error(`Error: ${message}`);
+      dispatch(clearErrors());
+    }
 
     if (isUserUpdated) {
       console.log("user is updated");
       alert.success("Profile Updated Successfully");
       navigate("/account", { replace: true });
       dispatch(clearErrors());
+      dispatch(loadUser());
     }
-  }, [dispatch, alert, navigate, user, isUserUpdated]);
+  }, [dispatch, alert, navigate, user, isUserUpdated, message]);
   return (
     <Fragment>
       {isLoading ? (

@@ -10,6 +10,7 @@ const Profile = () => {
   const { user, isAuthenticated, isLoading } = useSelector(
     (state) => state.authReducer
   );
+
   let navigate = useNavigate();
 
   // useEffect(() => {
@@ -25,7 +26,6 @@ const Profile = () => {
         <Loader />
       ) : (
         <Fragment>
-          <div>Profile page</div>
           <MetaData title={`${user.name}'s Profile`} />
           <div className="profileContainer">
             <div>

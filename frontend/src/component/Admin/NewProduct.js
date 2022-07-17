@@ -39,6 +39,10 @@ const NewProduct = ({ history }) => {
     "Attire",
     "Camera",
     "SmartPhones",
+    "Grocery",
+    "Packaged Food",
+    "Fresh Juice",
+    "Salad",
   ];
 
   useEffect(() => {
@@ -102,7 +106,9 @@ const NewProduct = ({ history }) => {
             encType="multipart/form-data"
             onSubmit={createProductSubmitHandler}
           >
-            <h1>Create Product</h1>
+            <h1 className="text-center text-xl lg:text-3xl font-bold text-gray-600 mb-2 -mt-8">
+              CREATE PRODUCT
+            </h1>
 
             <div>
               <SpellcheckIcon />

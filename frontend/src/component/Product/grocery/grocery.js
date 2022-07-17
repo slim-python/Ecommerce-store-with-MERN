@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "./Products.css";
+// import "./Products.css";
 import { useSelector, useDispatch } from "react-redux";
-import ProductCard from "../layout/Home/ProductCard";
-import MetaData from "../layout/Metadata";
-import Loader from "../layout/Loader/Loader";
+import ProductCard from "../../layout/Home/ProductCard";
+import MetaData from "../../layout/Metadata";
+import Loader from "../../layout/Loader/Loader";
 import { useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Typography from "@material-ui/core/Typography";
@@ -11,15 +11,14 @@ import { Slider } from "@material-ui/core";
 import {
   fetchAsyncProducts,
   getAllProducts,
-} from "../../features/products/productSlice";
+} from "../../../features/products/productSlice";
 const categories = [
-  "Laptop",
-  "shirt",
-  "Tops",
-  "Bottom",
-  "Footwear",
-  "Attire",
-  "SmartPhones",
+  "Packaged Food",
+  "Dry Fruits",
+  "Grocery",
+  "Kitchen itmes",
+  "Breakfast items",
+  "Fresh Juice",
 ];
 
 const Products = () => {
@@ -31,8 +30,8 @@ const Products = () => {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([0, 250000]);
-  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState([0, 5000]);
+  const [category, setCategory] = useState("Grocery");
 
   const [ratings, setRatings] = useState(0);
   let { keyword } = useParams();
@@ -171,14 +170,53 @@ const Products = () => {
                 </div>
 
                 <main className="max-w-2xl mx-auto py-16 px-4 sm:py-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                  <div className="border-b border-gray-200 pb-10">
-                    <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
-                      New Arrivals
-                    </h1>
-                    <p className="mt-4 text-base text-gray-500">
-                      Checkout out the latest release of Basic Tees, new and
-                      improved with four openings!
-                    </p>
+                  <div class="relative bg-gray-800">
+                    <div class="h-56 bg-indigo-600 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
+                      <img
+                        class="w-full h-full object-cover opacity-40"
+                        src="https://pnptc-media.s3.amazonaws.com/images/header_photo.2e16d0ba.fill-600x400.jpg"
+                        alt=""
+                      />
+                    </div>
+                    <div class="relative max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+                      <div class="md:ml-auto md:w-1/2 md:pl-10">
+                        <h2 class="text-base font-semibold uppercase tracking-wider text-gray-300">
+                          Pixies / Grocery
+                        </h2>
+                        <p class="mt-2 text-white text-3xl font-extrabold tracking-tight sm:text-4xl">
+                          Now Groceries are avilable too
+                        </p>
+                        <p class="mt-3 text-lg text-gray-300">
+                          Whether you work from home or office or other
+                          workplaces, daily grocery items are a requisite for
+                          everybody. Regardless of the size of the family or
+                          where you live, one can easily browse for the required
+                          food or other daily use products and have them brought
+                          to your home.{" "}
+                        </p>
+                        <div class="mt-8">
+                          <div class="inline-flex rounded-md shadow">
+                            <a
+                              href="#grocery"
+                              class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50"
+                            >
+                              View here
+                              <svg
+                                class="-mr-1 ml-3 h-5 w-5 text-gray-400"
+                                x-description="Heroicon name: solid/external-link"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                              >
+                                <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+                                <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
+                              </svg>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
@@ -208,7 +246,7 @@ const Products = () => {
                         </svg>
                       </button>
 
-                      <div className="hidden lg:block">
+                      <div className="hidden lg:block" id="grocery">
                         <form className="divide-y divide-gray-200 space-y-10">
                           <div className="pt-10">
                             <fieldset>

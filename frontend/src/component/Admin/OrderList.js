@@ -45,13 +45,13 @@ const OrderList = ({ history }) => {
   }, [dispatch]);
 
   const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
+    { field: "id", headerName: "Order ID", minWidth: 180, flex: 0.6 },
 
     {
       field: "status",
       headerName: "Status",
-      minWidth: 150,
-      flex: 0.5,
+      minWidth: 90,
+      flex: 0.4,
       cellClassName: (params) => {
         return params.getValue(params.id, "status") === "Delivered"
           ? "greenColor"
@@ -62,15 +62,15 @@ const OrderList = ({ history }) => {
       field: "itemsQty",
       headerName: "Items Qty",
       type: "number",
-      minWidth: 150,
-      flex: 0.4,
+      minWidth: 90,
+      flex: 0.5,
     },
 
     {
       field: "amount",
       headerName: "Amount",
       type: "number",
-      minWidth: 270,
+      minWidth: 200,
       flex: 0.5,
     },
 
@@ -120,7 +120,9 @@ const OrderList = ({ history }) => {
       <div className="dashboard">
         <SideBar />
         <div className="productListContainer">
-          <h1 id="productListHeading">ALL ORDERS</h1>
+          <h1 className="text-center text-xl lg:text-3xl font-bold text-gray-600 my-10">
+            ALL ORDERS
+          </h1>
 
           <DataGrid
             rows={rows}

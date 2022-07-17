@@ -3,17 +3,17 @@
   max-width: 100%;
   padding: 0 7vmax;
   box-sizing: border-box;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(255, 255, 255);
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  margin-top: 100px;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
 }
 
-#myOrdersHeading {
+/* #myOrdersHeading {
   text-align: center;
   font: 400 1.2vmax "Roboto";
   padding: 0.5vmax;
@@ -21,7 +21,7 @@
   color: rgb(255, 255, 255);
   transition: all 0.5s;
   background-color: rgb(44, 44, 44);
-}
+} */
 
 .myOrdersTable {
   background-color: white;

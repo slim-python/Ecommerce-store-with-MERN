@@ -56,7 +56,7 @@ const Home = () => {
                   id="sale-heading"
                   className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
                 >
-                  Get 25% off during our one-time sale
+                  Get 25% off during our one-time sale{" "}
                 </h2>
                 <p className="mt-4 max-w-xl mx-auto text-xl text-gray-600">
                   Most of our products are limited releases that won;t come
